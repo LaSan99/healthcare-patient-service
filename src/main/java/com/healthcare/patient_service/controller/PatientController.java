@@ -57,7 +57,7 @@ public class PatientController {
 
     @PostMapping("/login")
     public String login() {
-        return "Login successful";
+        return "Use /patients/auth/login for JWT authentication";
     }
 
     @GetMapping("/profile")
