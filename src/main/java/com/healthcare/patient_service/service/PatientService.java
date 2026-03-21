@@ -45,4 +45,8 @@ public class PatientService {
     public void deletePatient(String id){
         repository.deleteById(id);
     }
+
+    public Patient findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
 }
