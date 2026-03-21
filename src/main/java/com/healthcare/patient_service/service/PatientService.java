@@ -2,12 +2,15 @@ package com.healthcare.patient_service.service;
 
 import com.healthcare.patient_service.model.Patient;
 import com.healthcare.patient_service.repository.PatientRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class PatientService {
+public class PatientService implements UserDetailsService {
 
     private final PatientRepository repository;
 
@@ -44,5 +47,18 @@ public class PatientService {
 
     public void deletePatient(String id){
         repository.deleteById(id);
+    }
+
+    public Patient findByEmail(String email) {
+        return repository.findByEmail(email);
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Patient patient = repository.findByEmail(email);
+        if (patient == null) {
+            throw new UsernameNotFoundException("Patient not found with email: " + email);
+        }
+        return patient;
     }
 }

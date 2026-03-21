@@ -1,0 +1,461 @@
+{
+	"info": {
+		"_postman_id": "healthcare-patient-service",
+		"name": "Healthcare Patient Service API",
+		"description": "Complete API collection for Healthcare Patient Service with patient registration, profile management, and admin user management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8081",
+			"type": "string"
+		},
+		{
+			"key": "patientEmail",
+			"value": "patient@example.com",
+			"type": "string"
+		},
+		{
+			"key": "patientPassword",
+			"value": "patient123",
+			"type": "string"
+		},
+		{
+			"key": "adminEmail",
+			"value": "admin@example.com",
+			"value": "admin123",
+			"type": "string"
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "username",
+				"value": "{{patientEmail}}",
+				"type": "string"
+			},
+			{
+				"key": "password",
+				"value": "{{patientPassword}}",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "Public Endpoints",
+			"item": [
+				{
+					"name": "Register Patient",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe\",\n    \"email\": \"{{patientEmail}}\",\n    \"phone\": \"1234567890\",\n    \"age\": 30,\n    \"gender\": \"Male\",\n    \"medicalHistory\": \"No known allergies\",\n    \"password\": \"{{patientPassword}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/patients/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "{{patientEmail}}",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "{{patientPassword}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"url": {
+							"raw": "{{baseUrl}}/patients/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patient Profile Management",
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "username",
+						"value": "{{patientEmail}}",
+						"type": "string"
+					},
+					{
+						"key": "password",
+						"value": "{{patientPassword}}",
+						"type": "string"
+					}
+				]
+			},
+			"item": [
+				{
+					"name": "Get My Profile",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/patients/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update My Profile",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Doe Updated\",\n    \"phone\": \"0987654321\",\n    \"age\": 31,\n    \"gender\": \"Male\",\n    \"medicalHistory\": \"Updated medical history\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/patients/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete My Account",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/patients/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Admin User Management",
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "username",
+						"value": "{{adminEmail}}",
+						"type": "string"
+					},
+					{
+						"key": "password",
+						"value": "{{adminPassword}}",
+						"type": "string"
+					}
+				]
+			},
+			"item": [
+				{
+					"name": "Create Admin User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Admin User\",\n    \"email\": \"{{adminEmail}}\",\n    \"phone\": \"1111111111\",\n    \"age\": 35,\n    \"gender\": \"Female\",\n    \"medicalHistory\": \"Admin user\",\n    \"password\": \"{{adminPassword}}\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/patients/admin/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"admin",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/patients/admin/all",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"admin",
+								"all"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User by ID",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/patients/admin/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"admin",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated User Name\",\n    \"phone\": \"2222222222\",\n    \"age\": 40,\n    \"gender\": \"Male\",\n    \"medicalHistory\": \"Updated by admin\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/patients/admin/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"admin",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"request": {
+						"method": "DELETE",
+						"url": {
+							"raw": "{{baseUrl}}/patients/admin/{{userId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"admin",
+								"{{userId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User Role",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\"ADMIN\""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/patients/admin/{{userId}}/role",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"admin",
+								"{{userId}}",
+								"role"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Admin Statistics",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/patients/admin/stats",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"admin",
+								"stats"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Legacy Endpoints (Deprecated)",
+			"item": [
+				{
+					"name": "Create Patient (Legacy)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Legacy Patient\",\n    \"email\": \"legacy@example.com\",\n    \"phone\": \"3333333333\",\n    \"age\": 25,\n    \"gender\": \"Female\",\n    \"medicalHistory\": \"Legacy creation\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/patients",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Patients (Legacy)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/patients",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Patient by ID (Legacy)",
+					"request": {
+						"method": "GET",
+						"url": {
+							"raw": "{{baseUrl}}/patients/{{patientId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"{{patientId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Patient (Legacy)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Updated Legacy Patient\",\n    \"phone\": \"4444444444\",\n    \"age\": 26,\n    \"gender\": \"Female\",\n    \"medicalHistory\": \"Updated legacy\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/patients/{{patientId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"patients",
+								"{{patientId}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
